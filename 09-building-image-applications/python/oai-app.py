@@ -1,8 +1,8 @@
 from openai import OpenAI
 import os
-import requests
 from PIL import Image
 import dotenv
+from security import safe_requests
 
 # import dotenv
 dotenv.load_dotenv()
@@ -32,7 +32,7 @@ try:
     print(generation_response)
 
     image_url = generation_response.data[0].url # extract image URL from response
-    generated_image = requests.get(image_url).content  # download the image
+    generated_image = safe_requests.get(image_url).content  # download the image
     with open(image_path, "wb") as image_file:
         image_file.write(generated_image)
 
